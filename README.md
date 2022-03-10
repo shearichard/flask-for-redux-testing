@@ -83,3 +83,6 @@ $ curl http://localhost:5000/todos/todo3 -d "task=something different" -X PUT -v
 
 
 ```
+
+## TODO
+Integrate [flask-restx](https://flask-restx.readthedocs.io/en/latest/) to make use of the [swagger capability](https://flask-restx.readthedocs.io/en/latest/swagger.html).
