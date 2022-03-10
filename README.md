@@ -5,9 +5,25 @@ A simple flask app to test the [Redux Toolkit](https://redux-toolkit.js.org/rtk-
 
 ## Sample API calls
 
+### Moviews 
+
+#### ADD a new movie
+
+```
+curl -X POST http://127.0.0.1:5000/movies -H 'Content-Type: application/json' -d '{"audience_score_percent": "55", "film": "Test Film 2", "genre": "Comedy", "lead_studio": "Warner Bros.", "profitability": "1.9802064", "rotten_tomatoes_percent": "8", "worldwide_gross_usd": "$69.31 ", "year": "2017"}'
+
+curl -X POST http://127.0.0.1:5000/movies \
+    -H 'Content-Type: application/json' 
+    -d '{"audience_score_percent": "55", "film": "Test Film 3", "genre": "Comedy", "lead_studio": "Warner Bros.", "profitability": "1.9802064", "rotten_tomatoes_percent": "8", "worldwide_gross_usd": "$69.31 ", "year": "2017"}'
+
+```
+
+
+### Todos
+
 These Sample API calls have been copied from the [flask-restful](https://flask-restful.readthedocs.io/en/latest/quickstart.html) documentation.
 
-### GET the list
+#### GET the list
 
 ```
 $ curl http://localhost:5000/todos
@@ -19,7 +35,7 @@ $ curl http://localhost:5000/todos/todo3
 {"task": "profit!"}
 ```
 
-### DELETE a task
+#### DELETE a task
 
 ```
 $ curl http://localhost:5000/todos/todo2 -X DELETE -v
@@ -37,7 +53,7 @@ $ curl http://localhost:5000/todos/todo2 -X DELETE -v
 < Date: Mon, 01 Oct 2012 22:10:32 GMT
 ```
 
-### Add a new task
+#### ADD a new task
 
 ```
 $ curl http://localhost:5000/todos -d "task=something new" -X POST -v
@@ -60,7 +76,7 @@ $ curl http://localhost:5000/todos -d "task=something new" -X POST -v
 {"task": "something new"}
 ```
 
-### Update a task
+#### UPDATE a task
 
 ```
 $ curl http://localhost:5000/todos/todo3 -d "task=something different" -X PUT -v
