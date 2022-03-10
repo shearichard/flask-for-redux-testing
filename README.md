@@ -12,10 +12,6 @@ A simple flask app to test the [Redux Toolkit](https://redux-toolkit.js.org/rtk-
 ```
 curl -X POST http://127.0.0.1:5000/movies -H 'Content-Type: application/json' -d '{"audience_score_percent": "55", "film": "Test Film 2", "genre": "Comedy", "lead_studio": "Warner Bros.", "profitability": "1.9802064", "rotten_tomatoes_percent": "8", "worldwide_gross_usd": "$69.31 ", "year": "2017"}'
 
-curl -X POST http://127.0.0.1:5000/movies \
-    -H 'Content-Type: application/json' 
-    -d '{"audience_score_percent": "55", "film": "Test Film 3", "genre": "Comedy", "lead_studio": "Warner Bros.", "profitability": "1.9802064", "rotten_tomatoes_percent": "8", "worldwide_gross_usd": "$69.31 ", "year": "2017"}'
-
 ```
 
 
