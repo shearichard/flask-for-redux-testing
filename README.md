@@ -86,3 +86,6 @@ $ curl http://localhost:5000/todos/todo3 -d "task=something different" -X PUT -v
 
 ## TODO
 Integrate [flask-restx](https://flask-restx.readthedocs.io/en/latest/) to make use of the [swagger capability](https://flask-restx.readthedocs.io/en/latest/swagger.html).
+
+## Credits
+The initial movie data, movie.csv, is from https://gist.github.com/tiangechen/b68782efa49a16edaf07dc2cdaa855ea which has no explicit license so I'm assuming is free to use, I'm happy to remove it from the project if anyone wishes to complain.
