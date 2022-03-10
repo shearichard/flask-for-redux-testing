@@ -1,4 +1,4 @@
-# X
+# Flask API for Redux Toolkit Testing 
 ## Summary 
 
 A simple flask app to test the [Redux Toolkit](https://redux-toolkit.js.org/rtk-query/usage-with-typescript).
