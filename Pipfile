@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 flask-restful = "*"
 flask-cors = "*"
-flask-apispec = "*"
+flask-apispec = "==0.11.0"
 
 [dev-packages]
 
