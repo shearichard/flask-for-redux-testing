@@ -3,9 +3,15 @@
 
 A simple flask app to test the [Redux Toolkit](https://redux-toolkit.js.org/rtk-query/usage-with-typescript).
 
+## Online Documenation (OpenAPI/Swagger)
+
+The API endpoints are documented as part of the project and can be accessed at http://127.0.0.1:5000/swagger and http://127.0.0.1:5000/swagger-ui .
+
+There are some notes about how that was done [here](https://progressstory.com/tech/python/swagger-api-doc-automation-with-flask-restful/).
+
 ## Sample API calls
 
-### Moviews 
+### Movies 
 
 #### ADD a new movie
 

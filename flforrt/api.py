@@ -5,6 +5,12 @@ import pprint
 from flask import Flask, request
 from flask_cors import CORS
 from flask_restful import reqparse, abort, Api, Resource
+from flask_apispec import use_kwargs, marshal_with 
+from flask_apispec.views import MethodResource
+from flask_apispec.extension import FlaskApiSpec 
+from marshmallow import Schema, fields
+from apispec import APISpec
+from apispec.ext.marshmallow import MarshmallowPlugin
 
 from api_utils import initialize_movies
 
@@ -17,9 +23,13 @@ def abort_if_movie_doesnt_exist(movie_id):
     if movie_id not in MOVIES:
         abort(404, message="Movie {} doesn't exist".format(movie_id))
 
-# MovieList
+class MovieSchema(Schema):
+    class Meta:
+        fields = ('film', 'genre', 'lead_studio', 'audience_score_percent', 'profitability', 'rotten_tomatoes_percent', 'worldwide_gross_usd', 'year')
+
+# MovieListResource
 # shows a list of all movies, and lets you POST to add new tasks
-class MovieList(Resource):
+class MovieListResource(MethodResource):
     def get(self):
         return MOVIES
 
@@ -33,18 +43,22 @@ class MovieList(Resource):
         MOVIES[slug] = new_movie 
         return MOVIES[slug], 201
 
-# Movie
+# MovieResource
 # shows a single movie item and lets you delete a movie items
-class Movie(Resource):
+class MovieResource(MethodResource):
+    @marshal_with(MovieSchema)
     def get(self, movie_id):
         abort_if_movie_doesnt_exist(movie_id)
         return MOVIES[movie_id]
 
+    @marshal_with(None, code=204)
     def delete(self, movie_id):
         abort_if_movie_doesnt_exist(movie_id)
         del MOVIES[movie_id]
         return '', 204
 
+    @use_kwargs(MovieSchema)
+    @marshal_with(MovieSchema)
     def put(self):
         '''
         'ffcb5765': {'audience_score_percent': '55',
@@ -67,9 +81,24 @@ def main():
     app = Flask(__name__)
     CORS(app)
     api = Api(app)
+    #
+    app.config.update({
+        'APISPEC_SPEC': APISpec(
+            title='Backend for Redux Testing',
+            version='v1',
+            plugins=[MarshmallowPlugin()],
+            openapi_version='2.0.0'
+        ),
+        'APISPEC_SWAGGER_URL': '/swagger/',  # URI to access API Doc JSON
+        'APISPEC_SWAGGER_UI_URL': '/swagger-ui/'  # URI to access UI of API Doc
+    })
+    docs = FlaskApiSpec(app)
+    #
+    api.add_resource(MovieListResource, '/movies')
+    api.add_resource(MovieResource, '/movies/<movie_id>')
     ##
-    api.add_resource(MovieList, '/movies')
-    api.add_resource(Movie, '/movies/<movie_id>')
+    docs.register(MovieListResource)
+    docs.register(MovieResource)
     ##
     app.run(debug=True)
 
