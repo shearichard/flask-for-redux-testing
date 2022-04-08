@@ -1,34 +1,24 @@
-from flask import Flask, request
-from flask_cors import CORS
-from flask_restful import reqparse, abort, Api, Resource
 import csv
 import uuid
 import pprint
 
-MOVIE_INPUT_FIELD_NAMES = ['film', 'genre', 'lead_studio', 'audience_score_percent', 'profitability', 'rotten_tomatoes_percent', 'worldwide_gross_usd', 'year']
+from flask import Flask, request
+from flask_cors import CORS
+from flask_restful import reqparse, abort, Api, Resource
 
-def initialize_movies():
-    dicout = {}
-    with open('movies.csv', newline='') as csvfile:
-        reader = csv.DictReader(csvfile, fieldnames=MOVIE_INPUT_FIELD_NAMES)
-        #
-        for row in reader:
-            slug = str(uuid.uuid4())[:8]
-            dicout[slug] = row
-            dicout[slug]['worldwide_gross_usd'] = dicout[slug]['worldwide_gross_usd'].replace("$","")
+from api_utils import initialize_movies
 
-    #
-    return dicout
 
 def make_movie(title, length, directory, year):
     return {"title": title, "length": length, "directory": directory, "year": year}
+
 
 def abort_if_movie_doesnt_exist(movie_id):
     if movie_id not in MOVIES:
         abort(404, message="Movie {} doesn't exist".format(movie_id))
 
 # MovieList
-# shows a list of all todos, and lets you POST to add new tasks
+# shows a list of all movies, and lets you POST to add new tasks
 class MovieList(Resource):
     def get(self):
         return MOVIES
